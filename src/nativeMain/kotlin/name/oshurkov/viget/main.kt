@@ -10,31 +10,21 @@ import org.gnome.gtk.onActivate
 import org.gnome.gtk.onClicked
 import org.gnome.gtk.run
 import org.gnome.gtk.showAll
-import org.gnome.gtk.text
 import org.mrlem.gnome.gtk.newAndRun
 
 fun main() = ApplicationFactory.newAndRun("name.oshurkov.viget") {
 
     VigetUI().apply {
 
-        aboutButton.onClicked {
+        newButton.onClicked {
+        }
+
+        aboutMenuItem.onActivate {
             aboutDialog.asDialog.run()
             aboutDialog.asWidget.hide()
         }
-        euroAmountEntry.onActivate { showConverted() }
-        convertButton.onClicked { showConverted() }
 
         mainWindow.asWidget.showAll()
         addWindow(mainWindow)
     }
 }
-
-
-private fun VigetUI.showConverted() {
-    dollarAmountLabel.text = convert(euroAmountEntry.text?.toFloatOrNull())
-}
-
-private fun convert(euros: Float?) = euros
-    ?.let { 123 }
-    ?.let { "$ $it" }
-    ?: "-"
