@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
-<interface>
+<!-- Generated with glade 3.38.2 
+
+The MIT License (MIT)
+
+Copyright (c) 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+-->
+<interface domain="viget">
   <requires lib="gtk+" version="3.20"/>
+  <!-- interface-license-type mit -->
+  <!-- interface-name viget -->
   <object class="GtkAboutDialog" id="about_dialog">
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
@@ -42,6 +68,20 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="job_list">
+    <columns>
+      <!-- column-name gint1 -->
+      <column type="gint"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">3</col>
+      </row>
+      <row>
+        <col id="0">5</col>
+      </row>
+    </data>
   </object>
   <object class="GtkPopoverMenu" id="main_menu">
     <property name="can-focus">False</property>
@@ -97,10 +137,31 @@
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">GTK Sample</property>
     <property name="window-position">center</property>
+    <property name="default-width">550</property>
     <property name="icon-name">applications-multimedia</property>
     <property name="gravity">center</property>
     <child>
-      <placeholder/>
+      <object class="GtkTreeView" id="job_tree_view">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="model">job_list</property>
+        <property name="headers-visible">False</property>
+        <child internal-child="selection">
+          <object class="GtkTreeSelection"/>
+        </child>
+        <child>
+          <object class="GtkTreeViewColumn">
+            <property name="spacing">2</property>
+            <property name="title" translatable="yes">column</property>
+            <child>
+              <object class="GtkCellRendererText"/>
+              <attributes>
+                <attribute name="text">0</attribute>
+              </attributes>
+            </child>
+          </object>
+        </child>
+      </object>
     </child>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="headerbar">
