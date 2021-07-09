@@ -43,23 +43,61 @@
       </object>
     </child>
   </object>
-  <object class="GtkMenu" id="main_menu">
-    <property name="visible">True</property>
+  <object class="GtkPopoverMenu" id="main_menu">
     <property name="can-focus">False</property>
     <child>
-      <object class="GtkMenuItem" id="about_menu_item">
+      <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">О программе...</property>
-        <property name="use-underline">True</property>
+        <property name="border-width">4</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <object class="GtkModelButton" id="about_menu_item">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="text" translatable="yes">О программе...</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">7</property>
+          </packing>
+        </child>
       </object>
+      <packing>
+        <property name="submenu">main</property>
+        <property name="position">1</property>
+      </packing>
     </child>
   </object>
   <object class="GtkWindow" id="main_window">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">GTK Sample</property>
     <property name="window-position">center</property>
-    <property name="icon-name">applications-development</property>
+    <property name="icon-name">applications-multimedia</property>
     <property name="gravity">center</property>
     <child>
       <placeholder/>
@@ -82,19 +120,23 @@
           </object>
         </child>
         <child>
-          <object class="GtkMenuButton" id="main_menu_button">
+          <object class="GtkMenuButton" id="menu-button">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="focus-on-click">False</property>
             <property name="receives-default">True</property>
             <property name="draw-indicator">True</property>
-            <property name="popup">main_menu</property>
-            <property name="align-widget">headerbar</property>
+            <property name="popover">main_menu</property>
             <child>
-              <placeholder/>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="icon-name">open-menu-symbolic</property>
+              </object>
             </child>
           </object>
           <packing>
+            <property name="pack-type">end</property>
             <property name="position">1</property>
           </packing>
         </child>
