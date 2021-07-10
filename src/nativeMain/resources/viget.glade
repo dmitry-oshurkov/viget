@@ -137,7 +137,8 @@ THE SOFTWARE.
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">GTK Sample</property>
     <property name="window-position">center</property>
-    <property name="default-width">550</property>
+    <property name="default-width">500</property>
+    <property name="default-height">550</property>
     <property name="icon-name">applications-multimedia</property>
     <property name="gravity">center</property>
     <child>
@@ -167,7 +168,7 @@ THE SOFTWARE.
       <object class="GtkHeaderBar" id="headerbar">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="title" translatable="yes">Video Downloader</property>
+        <property name="title" translatable="yes">viget</property>
         <property name="show-close-button">True</property>
         <child>
           <object class="GtkButton" id="new_button">
