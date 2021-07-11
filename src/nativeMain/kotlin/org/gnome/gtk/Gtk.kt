@@ -16,3 +16,8 @@ fun newTreeIter() = memScoped {
     val iter = alloc<GtkTreeIter>()
     iter.ptr
 }
+
+val Widget.asBox: Box get() = reinterpret()
+val Widget.asLabel: Label get() = reinterpret()
+val Widget.asGrid: Grid get() = reinterpret()
+val Widget.asButton: Button get() = reinterpret()

@@ -69,19 +69,124 @@ THE SOFTWARE.
       </object>
     </child>
   </object>
+  <!-- n-columns=2 n-rows=1 -->
+  <object class="GtkGrid" id="job_grid">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkImage">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="pixbuf">video-downloader.icns</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="baseline-position">top</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">ss</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <!-- n-columns=3 n-rows=3 -->
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkButton" id="btn_2">
+                <property name="label" translatable="yes">button2</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_1">
+                <property name="label" translatable="yes">button1</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">0</property>
+      </packing>
+    </child>
+  </object>
   <object class="GtkListStore" id="job_list">
     <columns>
-      <!-- column-name gint1 -->
+      <!-- column-name url -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+      <!-- column-name duration -->
+      <column type="gchararray"/>
+      <!-- column-name file -->
+      <column type="gchararray"/>
+      <!-- column-name fileSize -->
+      <column type="gulong"/>
+      <!-- column-name format -->
+      <column type="gchararray"/>
+      <!-- column-name fps -->
       <column type="gint"/>
+      <!-- column-name state -->
+      <column type="gchararray"/>
+      <!-- column-name thumbnail -->
+      <column type="gchararray"/>
     </columns>
-    <data>
-      <row>
-        <col id="0">3</col>
-      </row>
-      <row>
-        <col id="0">5</col>
-      </row>
-    </data>
   </object>
   <object class="GtkPopoverMenu" id="main_menu">
     <property name="can-focus">False</property>
@@ -142,26 +247,9 @@ THE SOFTWARE.
     <property name="icon-name">applications-multimedia</property>
     <property name="gravity">center</property>
     <child>
-      <object class="GtkTreeView" id="job_tree_view">
+      <object class="GtkListBox" id="job_list_box">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="model">job_list</property>
-        <property name="headers-visible">False</property>
-        <child internal-child="selection">
-          <object class="GtkTreeSelection"/>
-        </child>
-        <child>
-          <object class="GtkTreeViewColumn">
-            <property name="spacing">2</property>
-            <property name="title" translatable="yes">column</property>
-            <child>
-              <object class="GtkCellRendererText"/>
-              <attributes>
-                <attribute name="text">0</attribute>
-              </attributes>
-            </child>
-          </object>
-        </child>
+        <property name="can-focus">False</property>
       </object>
     </child>
     <child type="titlebar">
