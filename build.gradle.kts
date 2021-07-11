@@ -71,9 +71,7 @@ kotlin {
                             "include/gtk-3.0",
                             "include/glib-2.0",
                             "lib/glib-2.0/include"
-                        ).forEach {
-                            includeDirs(mingwPath.resolve(it))
-                        }
+                        ).forEach { includeDirs(mingwPath.resolve(it)) }
                     }
                 }
             }
@@ -94,4 +92,19 @@ kotlin {
             }
         }
     }
+}
+
+tasks {
+
+    val reflect by registering {
+
+        file("$buildDir/generated/glade/nativeMain/binding/VigetUI.kt").apply {
+            val text = readLines().toMutableList()
+            if (text.any { it.contains("val builderNew") }.not())
+                text.add(text.size - 1, "val builderNew get() = BuilderFactory.new().apply { addFromString(source) }")
+            writeText(text.joinToString("\n"))
+        }
+    }
+
+    startGladeWatcher.get().finalizedBy(reflect)
 }
