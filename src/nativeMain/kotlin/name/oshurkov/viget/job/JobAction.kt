@@ -5,6 +5,10 @@ import name.oshurkov.viget.io.readAllText
 import name.oshurkov.viget.job.DownloadState.IN_PROGRESS
 import name.oshurkov.viget.job.DownloadState.NEW
 import name.oshurkov.viget.jobsFile
+import name.oshurkov.viget.thumbnail.makeThumbnail
+import name.oshurkov.viget.thumbnailsDir
+import name.oshurkov.viget.youtube.YoutubeVideo
+import name.oshurkov.viget.youtube.execYoutubeDl
 import name.oshurkov.viget.youtube.isYoutubeUrl
 
 fun placeToQueue(url: String?) = url
@@ -25,6 +29,28 @@ fun loadJobs() {
         .orEmpty()
 }
 
+fun Job.runDownload(onMakeThumbnail: (String) -> Unit) = run {
+
+    execYoutubeDl("--dump-json", url) {
+
+        val videoInfo = it.decodeTo<YoutubeVideo>()
+
+        makeThumbnail(videoInfo.id, videoInfo.thumbnail)
+        onMakeThumbnail("$thumbnailsDir/${videoInfo.id}.png")
+
+        val maxQuality = false
+        val height = if (maxQuality)
+            "2160"
+        else
+            "1080"
+
+        // tmp
+        val outFile = "%(title)s.%(ext)s" // private val outFile = File(appConfig.downloadDir, "%(title)s.%(ext)s").absolutePath
+
+        execYoutubeDl("--no-warnings", "-f", "\"bestvideo[height<=$height]+bestaudio/best[height<=$height]\"", "-o", "\"$outFile\"", url) {
+        }
+    }
+}
 
 /**
  * [jobs file](file://~/.local/share/viget/jobs.json)
