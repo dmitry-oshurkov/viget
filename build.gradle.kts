@@ -3,7 +3,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.5.20"
+    kotlin("multiplatform") version "1.5.21"
     id("org.mrlem.gnome.glade") version "0.1.8"
 }
 
@@ -13,6 +13,7 @@ version = "5"
 repositories {
     mavenCentral()
     maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
+    maven(url = "https://dl.bintray.com/korlibs/korlibs/")
 }
 
 kotlin {
@@ -81,7 +82,9 @@ kotlin {
     sourceSets {
         val nativeMain by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-linuxx64:1.5.1-native-mt")
                 implementation("org.mrlem.gnome:gtk-binding:0.2.1-SNAPSHOT")
+                implementation("com.soywiz.korlibs.korim:korim:2.2.0")
             }
         }
         val nativeTest by getting

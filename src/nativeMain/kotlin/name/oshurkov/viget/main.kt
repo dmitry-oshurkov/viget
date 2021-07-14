@@ -63,3 +63,7 @@ fun main() = ApplicationFactory.newAndRun("name.oshurkov.viget") {
         addWindow(mainWindow)
     }
 }
+
+
+val userHome = getenv("HOME").toKString()
+val thumbnailsDir = "$userHome/.local/share/viget/thumbnails"
