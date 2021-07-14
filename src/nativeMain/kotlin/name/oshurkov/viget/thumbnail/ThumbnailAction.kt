@@ -1,9 +1,10 @@
 package name.oshurkov.viget.thumbnail
 
 import com.soywiz.korio.file.writeToFile
+import io.ktor.client.*
+import io.ktor.client.engine.curl.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.runBlocking
-import name.oshurkov.viget.io.client
 import name.oshurkov.viget.thumbnailsDir
 import org.gnome.gdkpixbuf.savev
 import org.gnome.gtk.newPixbufFromFileAtScale
@@ -26,3 +27,5 @@ fun makeThumbnail(id: String, thumbnailUrl: String) {
 
 
 private fun convertThumbnail(source: String, target: String) = newPixbufFromFileAtScale(source, 100, 100, 1).savev(target, "png", null, null)
+
+private val client = HttpClient(Curl)

@@ -4,6 +4,7 @@ buildscript {
 
 plugins {
     kotlin("multiplatform") version "1.5.21"
+    kotlin("plugin.serialization") version "1.5.21"
     id("org.mrlem.gnome.glade") version "0.1.8"
 }
 
@@ -79,11 +80,16 @@ kotlin {
         }
     }
 
+    val ktorVersion: String by rootProject
+
     sourceSets {
         val nativeMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-linuxx64:1.5.1-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
                 implementation("org.mrlem.gnome:gtk-binding:0.2.1-SNAPSHOT")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-curl-linuxx64:$ktorVersion")
                 implementation("com.soywiz.korlibs.korim:korim:2.2.0")
             }
         }
