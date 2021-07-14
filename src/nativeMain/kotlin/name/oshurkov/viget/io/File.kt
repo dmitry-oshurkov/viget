@@ -4,10 +4,12 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toKString
+import platform.posix.EOF
 import platform.posix.SEEK_END
 import platform.posix.SEEK_SET
 import platform.posix.fclose
 import platform.posix.fopen
+import platform.posix.fputs
 import platform.posix.fread
 import platform.posix.fseek
 import platform.posix.ftell
@@ -34,5 +36,17 @@ fun readAllText(filePath: String): String? {
             }
 
         else -> null
+    }
+}
+
+fun String.writeTo(filePath: String) {
+    val file = fopen(filePath, "w") ?: throw IllegalArgumentException("Cannot open output file $filePath")
+    try {
+        memScoped {
+            if (fputs(this@writeTo, file) == EOF)
+                throw Error("File write error")
+        }
+    } finally {
+        fclose(file)
     }
 }

@@ -1,7 +1,9 @@
 package name.oshurkov.viget.job
 
 import name.oshurkov.viget.decodeTo
+import name.oshurkov.viget.encodeToJson
 import name.oshurkov.viget.io.readAllText
+import name.oshurkov.viget.io.writeTo
 import name.oshurkov.viget.job.DownloadState.IN_PROGRESS
 import name.oshurkov.viget.job.DownloadState.NEW
 import name.oshurkov.viget.jobsFile
@@ -15,9 +17,7 @@ fun placeToQueue(url: String?) = url
     ?.takeIf { it !in jobs.map { job -> job.url } }
     ?.takeIf { it.isYoutubeUrl() }
     ?.let { Job(url = it, title = it) }
-    ?.also {
-        jobs += it
-    }
+    ?.also { jobs += it }
 
 fun loadJobs() {
     jobs += readAllText(jobsFile)
@@ -52,7 +52,14 @@ fun Job.runDownload(onMakeThumbnail: (String) -> Unit) = run {
     }
 }
 
+
 /**
  * [jobs file](file://~/.local/share/viget/jobs.json)
  */
-internal val jobs = mutableListOf<Job>()
+internal val jobs = ObservableList(mutableListOf<Job>()) {
+
+    val save = { wrapped.encodeToJson().writeTo(jobsFile) }
+
+    added(save)
+    removed(save)
+}
